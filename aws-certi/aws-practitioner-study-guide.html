@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS Cloud Practitioner — Complete Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0f1a;
+  --surface: #111827;
+  --surface2: #162032;
+  --border: #1e2d47;
+  --border2: #253650;
+  --orange: #f97316;
+  --blue: #38bdf8;
+  --green: #34d399;
+  --purple: #a78bfa;
+  --yellow: #fbbf24;
+  --red: #f87171;
+  --teal: #2dd4bf;
+  --text: #cbd5e1;
+  --muted: #475569;
+  --heading: #f1f5f9;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(56,189,248,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(249,115,22,0.04) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 100;
+  display: flex; flex-direction: column;
+}
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-track { background: transparent; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+.sidebar-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.sidebar-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+.sidebar-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sidebar-nav { padding: 12px 0; flex: 1; }
+.nav-module {
+  padding: 4px 0;
+}
+.nav-module-link {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 20px;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: all 0.15s;
+  border-left: 2px solid transparent;
+}
+.nav-module-link:hover {
+  color: var(--text);
+  background: rgba(255,255,255,0.03);
+}
+.nav-module-link.active {
+  color: var(--orange);
+  border-left-color: var(--orange);
+  background: rgba(249,115,22,0.06);
+}
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── MAIN ── */
+#main {
+  margin-left: 260px;
+  position: relative; z-index: 1;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 64px 64px;
+  border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: 'AWS';
+  position: absolute;
+  right: -20px; top: -30px;
+  font-family: 'Playfair Display', serif;
+  font-size: 200px;
+  font-weight: 800;
+  color: rgba(249,115,22,0.04);
+  pointer-events: none;
+  line-height: 1;
+}
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before {
+  content: ''; display: inline-block;
+  width: 24px; height: 1px;
+  background: var(--orange);
+}
+h1.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 5vw, 68px);
+  font-weight: 800;
+  color: var(--heading);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+h1.hero-title span { color: var(--orange); }
+.hero-desc {
+  max-width: 600px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+.hero-stats {
+  display: flex; gap: 40px; flex-wrap: wrap;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--heading);
+  line-height: 1;
+}
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ── MODULE SECTIONS ── */
+.module-section {
+  border-bottom: 1px solid var(--border);
+  padding: 56px 64px;
+}
+.module-header {
+  display: flex; align-items: flex-start; gap: 20px;
+  margin-bottom: 40px;
+}
+.module-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1;
+  opacity: 0.15;
+  flex-shrink: 0;
+  color: var(--heading);
+  min-width: 56px;
+}
+.module-title-group {}
+.module-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+h2.module-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--heading);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.module-intro {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 700px;
+  margin-top: 8px;
+  line-height: 1.8;
+}
+
+/* ── LESSON ── */
+.lesson {
+  margin-bottom: 48px;
+}
+h3.lesson-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+h3.lesson-title::before {
+  content: '▸';
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+/* ── CONCEPT CARDS ── */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.concept-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.concept-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.concept-card:hover { transform: translateY(-2px); }
+.concept-card:hover::before { opacity: 1; }
+.concept-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--heading);
+  margin-bottom: 6px;
+}
+.concept-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.concept-tag {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* color themes */
+.c-orange .concept-card::before { background: var(--orange); }
+.c-orange .concept-card:hover { border-color: rgba(249,115,22,0.4); }
+.c-orange .concept-tag { background: rgba(249,115,22,0.15); color: var(--orange); }
+.c-orange .module-eyebrow, .c-orange .module-num { color: var(--orange); }
+
+.c-blue .concept-card::before { background: var(--blue); }
+.c-blue .concept-card:hover { border-color: rgba(56,189,248,0.4); }
+.c-blue .concept-tag { background: rgba(56,189,248,0.15); color: var(--blue); }
+.c-blue .module-eyebrow, .c-blue .module-num { color: var(--blue); }
+
+.c-green .concept-card::before { background: var(--green); }
+.c-green .concept-card:hover { border-color: rgba(52,211,153,0.4); }
+.c-green .concept-tag { background: rgba(52,211,153,0.15); color: var(--green); }
+.c-green .module-eyebrow, .c-green .module-num { color: var(--green); }
+
+.c-purple .concept-card::before { background: var(--purple); }
+.c-purple .concept-card:hover { border-color: rgba(167,139,250,0.4); }
+.c-purple .concept-tag { background: rgba(167,139,250,0.15); color: var(--purple); }
+.c-purple .module-eyebrow, .c-purple .module-num { color: var(--purple); }
+
+.c-yellow .concept-card::before { background: var(--yellow); }
+.c-yellow .concept-card:hover { border-color: rgba(251,191,36,0.4); }
+.c-yellow .concept-tag { background: rgba(251,191,36,0.15); color: var(--yellow); }
+.c-yellow .module-eyebrow, .c-yellow .module-num { color: var(--yellow); }
+
+.c-teal .concept-card::before { background: var(--teal); }
+.c-teal .concept-card:hover { border-color: rgba(45,212,191,0.4); }
+.c-teal .concept-tag { background: rgba(45,212,191,0.15); color: var(--teal); }
+.c-teal .module-eyebrow, .c-teal .module-num { color: var(--teal); }
+
+.c-red .concept-card::before { background: var(--red); }
+.c-red .concept-card:hover { border-color: rgba(248,113,113,0.4); }
+.c-red .concept-tag { background: rgba(248,113,113,0.15); color: var(--red); }
+.c-red .module-eyebrow, .c-red .module-num { color: var(--red); }
+
+/* ── TABLE ── */
+.data-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.data-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px;
+}
+.data-table th {
+  text-align: left;
+  padding: 10px 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.data-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(30,45,71,0.5);
+  vertical-align: top;
+  line-height: 1.6;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: rgba(255,255,255,0.015); }
+.data-table td:first-child {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--heading);
+  white-space: nowrap;
+}
+.data-table td:last-child { color: var(--muted); }
+
+/* ── CALLOUT ── */
+.callout {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.callout strong { color: var(--heading); }
+.callout-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* ── PIPELINE ── */
+.pipeline {
+  display: flex; align-items: center; gap: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 24px;
+  margin-bottom: 24px;
+  overflow-x: auto; flex-wrap: wrap; gap: 8px;
+}
+.pipe-step {
+  display: flex; align-items: center; gap: 8px;
+  white-space: nowrap;
+}
+.pipe-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.pipe-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500;
+}
+.pipe-arrow { color: var(--muted); font-size: 14px; margin: 0 6px; }
+
+/* ── TIER ── */
+.tier-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 0;
+  margin-bottom: 2px;
+}
+.tier-label {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 12px 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--muted);
+}
+.tier-content {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  font-size: 13px;
+}
+.tier-content strong { color: var(--heading); font-size: 13px; }
+.tier-content span { color: var(--muted); font-size: 12px; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 36px 0; }
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* PROSE */
+.prose { font-size: 14px; color: var(--text); line-height: 1.8; margin-bottom: 16px; }
+.prose strong { color: var(--heading); }
+.prose em { color: var(--blue); font-style: normal; }
+
+/* BADGE */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+.badge-free { background: rgba(52,211,153,0.15); color: var(--green); }
+.badge-paid { background: rgba(251,191,36,0.15); color: var(--yellow); }
+
+/* SUPPORT TABLE */
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  margin-bottom: 24px;
+}
+.support-cell {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 14px 12px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+.support-cell.header {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--heading);
+  background: var(--surface2);
+}
+
+/* NAV ACTIVE JS */
+@media (max-width: 900px) {
+  #sidebar { width: 220px; }
+  #main { margin-left: 220px; }
+  .hero, .module-section { padding: 40px 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">AWS Cloud Practitioner</div>
+    <div class="sidebar-sub">Complete Study Guide</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-module"><a class="nav-module-link" href="#hero"><span class="nav-dot" style="background:#f97316"></span>Overview</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod1"><span class="nav-dot" style="background:#f97316"></span>1 · Compute (EC2)</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod2"><span class="nav-dot" style="background:#38bdf8"></span>2 · Messaging</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod3"><span class="nav-dot" style="background:#34d399"></span>3 · Serverless</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod4"><span class="nav-dot" style="background:#a78bfa"></span>4 · Global Infra</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod5"><span class="nav-dot" style="background:#fbbf24"></span>5 · Networking</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod6"><span class="nav-dot" style="background:#2dd4bf"></span>6 · Storage</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod7"><span class="nav-dot" style="background:#f87171"></span>7 · Databases</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod8"><span class="nav-dot" style="background:#f97316"></span>8 · AI/ML & Analytics</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod9"><span class="nav-dot" style="background:#38bdf8"></span>9 · Security</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod10"><span class="nav-dot" style="background:#34d399"></span>10 · Monitoring</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod11"><span class="nav-dot" style="background:#a78bfa"></span>11 · Pricing</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod12"><span class="nav-dot" style="background:#fbbf24"></span>12 · Migration</a></div>
+    <div class="nav-module"><a class="nav-module-link" href="#mod13"><span class="nav-dot" style="background:#2dd4bf"></span>13 · Well-Architected</a></div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-eyebrow">AWS Cloud Practitioner · CLF-C02</div>
+  <h1 class="hero-title">Complete<br><span>Study Guide</span></h1>
+  <p class="hero-desc">All 13 modules of the AWS Cloud Practitioner course, restructured as a clear, concise reference with better explanations, visual summaries, and key concepts highlighted throughout.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">13</div><div class="stat-label">Modules</div></div>
+    <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Services</div></div>
+    <div class="stat"><div class="stat-num">CLF</div><div class="stat-label">C02 Exam</div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 1: COMPUTE / EC2 -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-orange" id="mod1">
+  <div class="module-header">
+    <div class="module-num">01</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 1 · Compute</div>
+      <h2 class="module-title">Amazon EC2 & Compute Services</h2>
+      <p class="module-intro">EC2 is AWS's virtual machine service — flexible, scalable, and foundational. Learn instance types, pricing models, and how Auto Scaling + Load Balancing keep apps resilient.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">What is Amazon EC2?</h3>
+    <div class="prose">Amazon Elastic Compute Cloud (EC2) lets you rent virtual servers in the cloud. Unlike physical servers you buy upfront, EC2 gives you <strong>on-demand compute capacity</strong> — spin up instances in minutes, pay only for what you use, and shut them down when done. AWS handles the physical hardware; you control the OS, software, and configuration.</div>
+    <div class="callout">
+      <div class="callout-title">☕ Coffee Shop Analogy</div>
+      EC2 is like ordering espresso — you request it when you need it (on-demand), choose the size (instance type), and pay per cup. No need to own the machine or the building.
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">EC2 Instance Types — Choose the Right Hardware</h3>
+    <p class="prose">Different workloads need different hardware. AWS offers 5 families. Think of each as a specialized tool:</p>
+    <div class="concept-grid c-orange">
+      <div class="concept-card">
+        <div class="concept-name">General Purpose</div>
+        <div class="concept-desc">Balanced CPU, memory, networking. The "Swiss Army knife" for web servers, small databases, and dev environments.</div>
+        <div class="concept-tag">e.g., t3, m5</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Compute Optimized</div>
+        <div class="concept-desc">High-performance CPUs for batch processing, gaming servers, scientific modeling, and high-performance web servers.</div>
+        <div class="concept-tag">e.g., c5, c6g</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Memory Optimized</div>
+        <div class="concept-desc">Large RAM for in-memory databases, real-time analytics, and big data processing where data lives in memory.</div>
+        <div class="concept-tag">e.g., r5, x1</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Accelerated Computing</div>
+        <div class="concept-desc">GPU/FPGA hardware for machine learning, graphics rendering, and floating-point calculations that can't be done efficiently on CPUs.</div>
+        <div class="concept-tag">e.g., p3, g4</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Storage Optimized</div>
+        <div class="concept-desc">High disk I/O for data warehouses, distributed file systems, and OLTP systems that need fast sequential read/write.</div>
+        <div class="concept-tag">e.g., i3, d2</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">EC2 Pricing Models — Pay for What You Need</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Model</th><th>Best For</th><th>Savings</th></tr></thead>
+        <tbody>
+          <tr><td>On-Demand</td><td>Unpredictable workloads, testing, getting started. No commitment, highest flexibility.</td><td>Baseline price</td></tr>
+          <tr><td>Savings Plans</td><td>Consistent workloads. Commit to $/hr for 1 or 3 years on any instance family.</td><td>Up to 66%</td></tr>
+          <tr><td>Reserved Instances</td><td>Steady-state workloads. Reserve specific instance type/region for 1 or 3 years.</td><td>Up to 75%</td></tr>
+          <tr><td>Spot Instances</td><td>Flexible, fault-tolerant jobs — batch processing, data analysis. AWS can reclaim with 2-min notice.</td><td>Up to 90%</td></tr>
+          <tr><td>Dedicated Hosts</td><td>Compliance needs. Physical server dedicated to you — no shared hardware with other customers.</td><td>0% (most expensive)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>Memory trick:</strong> On-Demand → anytime, no strings. Savings Plans → commit to spend. Reserved → commit to specific instance. Spot → cheapest but interruptible. Dedicated → your own physical machine.
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Auto Scaling — Never Over or Under Provision</h3>
+    <div class="prose">EC2 Auto Scaling <strong>automatically adds or removes EC2 instances</strong> based on demand. If traffic spikes (Black Friday), more instances launch. When traffic drops, unneeded instances terminate — you stop paying for idle capacity.</div>
+    <div class="concept-grid c-orange">
+      <div class="concept-card">
+        <div class="concept-name">Dynamic Scaling</div>
+        <div class="concept-desc">Responds to real-time demand changes. Scale out when CPU &gt; 70%, scale in when CPU &lt; 30%.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Predictive Scaling</div>
+        <div class="concept-desc">Uses ML to forecast future demand and provisions capacity ahead of time. Great for known patterns like business hours.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Min / Max / Desired</div>
+        <div class="concept-desc">You set the floor (minimum instances always running), ceiling (maximum allowed), and starting point (desired capacity).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Elastic Load Balancing (ELB)</h3>
+    <div class="prose">ELB sits in front of your EC2 fleet and <strong>distributes incoming traffic across multiple instances</strong>. If one instance fails, ELB stops sending it traffic. When Auto Scaling adds new instances, ELB automatically starts routing to them. Together, ELB + Auto Scaling = high availability at scale.</div>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--orange)"></div><span class="pipe-label" style="color:var(--orange)">User Request</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--blue)"></div><span class="pipe-label" style="color:var(--blue)">ELB (distributes)</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--green)"></div><span class="pipe-label" style="color:var(--green)">EC2 Instance 1</span></div>
+      <span class="pipe-arrow">or</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--green)"></div><span class="pipe-label" style="color:var(--green)">EC2 Instance 2</span></div>
+      <span class="pipe-arrow">or</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--green)"></div><span class="pipe-label" style="color:var(--green)">EC2 Instance 3</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 2: MESSAGING -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-blue" id="mod2">
+  <div class="module-header">
+    <div class="module-num">02</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 2 · Messaging & Decoupling</div>
+      <h2 class="module-title">SQS, SNS & EventBridge</h2>
+      <p class="module-intro">Tightly coupled apps fail together. Loosely coupled apps survive partial failures. Learn how AWS messaging services let components communicate without direct dependencies.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Monolithic vs Microservices Architecture</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Architecture</th><th>How it works</th><th>Problem</th></tr></thead>
+        <tbody>
+          <tr><td>Monolithic</td><td>All components tightly bundled — database, UI, business logic in one app. A failure in one part can crash everything.</td><td>Brittle, hard to scale independently</td></tr>
+          <tr><td>Microservices</td><td>Components are loosely coupled and communicate via messages/APIs. One component failing doesn't bring down others.</td><td>More complex to build initially</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">The Three Messaging Services — Quick Comparison</h3>
+    <div class="concept-grid c-blue">
+      <div class="concept-card">
+        <div class="concept-name">Amazon SQS — Queue</div>
+        <div class="concept-desc">Messages sit in a queue until a consumer picks them up. The sender doesn't need the receiver to be online. Perfect when the receiver is sometimes busy or unavailable. One consumer per message.</div>
+        <div class="concept-tag">1-to-1 delivery</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon SNS — Topics</div>
+        <div class="concept-desc">Publisher sends one message to a "topic" and all subscribers (email, Lambda, SQS, SMS, HTTP) receive it simultaneously. Fan-out distribution.</div>
+        <div class="concept-tag">1-to-many delivery</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon EventBridge</div>
+        <div class="concept-desc">Routes events from AWS services, custom apps, and SaaS tools to targets. More powerful than SNS with filtering and transformation. Event-driven architecture hub.</div>
+        <div class="concept-tag">Event routing</div>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>When to use what:</strong><br>
+      • <em>SQS</em> → "Process this task when you're free" (order queue, job queue)<br>
+      • <em>SNS</em> → "Tell everyone about this now" (notifications, alerts)<br>
+      • <em>EventBridge</em> → "Route this event to the right service based on rules" (complex workflows)
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">SQS Deep Dive — How Queuing Prevents Bottlenecks</h3>
+    <div class="prose">Imagine a customer support system: the <strong>support agent adds tickets to a queue</strong>, the technical specialist picks them up when ready. Even if the specialist is busy, the agent keeps adding tickets. The queue acts as a buffer — no messages lost, no blocking.</div>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--orange)"></div><span class="pipe-label" style="color:var(--orange)">Producer (sends message)</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--blue)"></div><span class="pipe-label" style="color:var(--blue)">SQS Queue (stores)</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--green)"></div><span class="pipe-label" style="color:var(--green)">Consumer (processes when ready)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 3: SERVERLESS -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-green" id="mod3">
+  <div class="module-header">
+    <div class="module-num">03</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 3 · Serverless & Containers</div>
+      <h2 class="module-title">Lambda, ECS, EKS & More</h2>
+      <p class="module-intro">The progression from managing everything → managed services → serverless. As you move right, you focus more on code, less on infrastructure.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Three Levels of Compute Management</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Type</th><th>Example</th><th>You manage</th><th>AWS manages</th></tr></thead>
+        <tbody>
+          <tr><td>Unmanaged</td><td>Amazon EC2</td><td>OS, patches, scaling, config</td><td>Physical hardware</td></tr>
+          <tr><td>Managed</td><td>ELB, SNS, SQS</td><td>Config &amp; deployment</td><td>Infrastructure, scaling, HA</td></tr>
+          <tr><td>Fully Managed (Serverless)</td><td>AWS Lambda</td><td>Just your code</td><td>Everything else</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>Coffee Analogy:</strong> Unmanaged = custom espresso machine (full control, full maintenance). Managed = pod coffee maker (configure it, press button). Serverless = order from a barista (just describe what you want, they handle everything).
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">AWS Lambda — Serverless Functions</h3>
+    <div class="prose">Lambda lets you <strong>run code in response to events</strong> without managing any servers. You write the code, define a trigger, and Lambda handles scaling, availability, and execution automatically. You pay only for the milliseconds your code runs.</div>
+    <div class="concept-grid c-green">
+      <div class="concept-card">
+        <div class="concept-name">How Lambda Works</div>
+        <div class="concept-desc">1. Upload your code as a Lambda function<br>2. Set a trigger (S3 upload, API call, schedule)<br>3. Lambda runs your code when triggered<br>4. Auto-scales from 1 to thousands of concurrent runs</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Key Constraints</div>
+        <div class="concept-desc">Max execution time: 15 minutes. If your function can't complete in 15 min, split it up or use EC2/Fargate instead. Supports Python, Java, Node.js, C#, Go, and custom runtimes.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Pricing</div>
+        <div class="concept-desc">Pay per request + per GB-second of execution time. 1 million requests/month free. No charge when function isn't running — ideal for spiky or infrequent workloads.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Real-World Use Cases</div>
+        <div class="concept-desc">Resize images on S3 upload, process DynamoDB stream changes, run scheduled cron jobs, respond to API Gateway calls, send emails when a form is submitted.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Containers on AWS — ECS, EKS, ECR, Fargate</h3>
+    <div class="prose">Containers package your app + all dependencies into a portable unit. "Works on my machine" becomes "works everywhere." AWS offers an ecosystem for running containers at scale.</div>
+    <div class="concept-grid c-green">
+      <div class="concept-card">
+        <div class="concept-name">Amazon ECR</div>
+        <div class="concept-desc"><strong>Container Registry</strong> — where you store and manage container images. Like Docker Hub, but inside AWS. Pull images from here to deploy.</div>
+        <div class="concept-tag">Store Images</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon ECS</div>
+        <div class="concept-desc"><strong>Elastic Container Service</strong> — AWS-native orchestration. Simpler, tightly integrated with AWS. Good for teams that want managed orchestration without Kubernetes complexity.</div>
+        <div class="concept-tag">Orchestrate</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon EKS</div>
+        <div class="concept-desc"><strong>Elastic Kubernetes Service</strong> — managed Kubernetes on AWS. Best for teams already using Kubernetes or needing fine-grained control. Open-source community support.</div>
+        <div class="concept-tag">Kubernetes</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Fargate</div>
+        <div class="concept-desc"><strong>Serverless compute for containers</strong> — works with both ECS and EKS. You don't manage any EC2 instances. Define CPU/memory, deploy containers, pay per use.</div>
+        <div class="concept-tag">Serverless Hosting</div>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Decision flow:</strong> Store images in <em>ECR</em> → orchestrate with <em>ECS</em> (simpler) or <em>EKS</em> (Kubernetes) → run on <em>EC2</em> (more control) or <em>Fargate</em> (serverless).
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Additional Compute Services — Purpose-Built Solutions</h3>
+    <div class="concept-grid c-green">
+      <div class="concept-card">
+        <div class="concept-name">AWS Elastic Beanstalk</div>
+        <div class="concept-desc">Deploy web apps by just uploading code. Beanstalk auto-provisions EC2, load balancers, scaling, and monitoring. You keep full visibility and control of the underlying resources.</div>
+        <div class="concept-tag">Web Apps</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Batch</div>
+        <div class="concept-desc">Run large-scale batch computing jobs (simulations, data processing, ML training). Auto-scales compute across EC2 fleet. No need to manage queuing or infrastructure.</div>
+        <div class="concept-tag">Batch Jobs</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Lightsail</div>
+        <div class="concept-desc">Simplified VPS + storage + database at a predictable monthly price. Ideal for small businesses, blogs, simple apps, and learning cloud without AWS complexity.</div>
+        <div class="concept-tag">Simple Hosting</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Outposts</div>
+        <div class="concept-desc">Extends AWS infrastructure to your on-premises data center. Run AWS services locally for ultra-low latency, data residency requirements, or hybrid deployments.</div>
+        <div class="concept-tag">Hybrid Cloud</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 4: GLOBAL INFRASTRUCTURE -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-purple" id="mod4">
+  <div class="module-header">
+    <div class="module-num">04</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 4 · Global Infrastructure</div>
+      <h2 class="module-title">Regions, AZs, Edge Locations & CloudFormation</h2>
+      <p class="module-intro">AWS operates a global network of data centers organized into Regions, Availability Zones, and Edge Locations — each serving a different purpose in building resilient, fast, globally distributed applications.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">The Three Layers of AWS Infrastructure</h3>
+    <div class="concept-grid c-purple">
+      <div class="concept-card">
+        <div class="concept-name">AWS Regions</div>
+        <div class="concept-desc">Geographic areas (e.g., US East, EU West, AP Southeast). Each Region is completely isolated — data never leaves without your permission. Every Region has ≥3 Availability Zones. Choose based on compliance, latency, features, and pricing.</div>
+        <div class="concept-tag">Geographic Areas</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Availability Zones (AZs)</div>
+        <div class="concept-desc">Distinct data centers within a Region, each with independent power, networking, and cooling. Deploy across ≥2 AZs for high availability — if one AZ fails, others continue serving traffic seamlessly.</div>
+        <div class="concept-tag">Fault Isolation</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Edge Locations</div>
+        <div class="concept-desc">Mini-data centers in cities worldwide (hundreds globally). Cache frequently accessed content close to users — images, videos, web assets. Part of the CloudFront CDN network. Separate from Regions/AZs.</div>
+        <div class="concept-tag">Content Delivery</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">How to Choose a Region — The 4 Factors</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Factor</th><th>Explanation</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>1. Compliance</td><td>Most important. Some laws require data to stay within a country/region (GDPR, data sovereignty).</td><td>EU customer data must stay in EU Regions</td></tr>
+          <tr><td>2. Proximity</td><td>Closer to users = lower latency. Deploy in the Region nearest your customer base.</td><td>Singapore users → Singapore Region</td></tr>
+          <tr><td>3. Feature Availability</td><td>Not all services are in all Regions. New features roll out progressively to Regions over time.</td><td>Newer AI services may only be in us-east-1</td></tr>
+          <tr><td>4. Pricing</td><td>Costs vary by Region due to local taxes, energy costs, and infrastructure investment.</td><td>Brazil Region is typically more expensive</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Infrastructure as Code — AWS CloudFormation</h3>
+    <div class="prose">CloudFormation lets you define your entire AWS infrastructure in a text file (JSON or YAML called a <strong>template</strong>). Instead of clicking through the console for every resource, you describe what you want and CloudFormation builds it. Deploy the same template across 10 different accounts or Regions and get identical environments every time.</div>
+    <div class="concept-grid c-purple">
+      <div class="concept-card">
+        <div class="concept-name">Why IaC Matters</div>
+        <div class="concept-desc">Manual provisioning is slow and error-prone. IaC is repeatable, version-controlled (track changes in Git), and eliminates "works in dev, broken in prod" environment drift.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">CloudFormation Workflow</div>
+        <div class="concept-desc">Write template → CloudFormation calls all needed AWS APIs → Resources created as a "Stack". Update the template, CloudFormation figures out what changed and updates just those resources.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Interacting with AWS</div>
+        <div class="concept-desc"><strong>Console</strong>: GUI, best for beginners &amp; visualizations. <strong>CLI</strong>: Command line scripts &amp; automation. <strong>SDK</strong>: Code integration (Python, Java, etc.). <strong>CloudFormation</strong>: Infrastructure as code.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 5: NETWORKING -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-yellow" id="mod5">
+  <div class="module-header">
+    <div class="module-num">05</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 5 · Networking</div>
+      <h2 class="module-title">VPC, Subnets, Security Groups & Global Networking</h2>
+      <p class="module-intro">Your private slice of the AWS cloud. Learn how to isolate resources, control traffic flow, connect on-premises networks, and deliver content globally with low latency.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Amazon VPC — Your Private Network in AWS</h3>
+    <div class="prose">A <strong>Virtual Private Cloud (VPC)</strong> is a logically isolated section of the AWS cloud where you launch resources in a virtual network you define. Think of it as your own building inside AWS — you control what goes in, what goes out, and who can talk to what.</div>
+    <div class="concept-grid c-yellow">
+      <div class="concept-card">
+        <div class="concept-name">Public Subnets</div>
+        <div class="concept-desc">Resources accessible from the internet. Connected to an Internet Gateway. Used for web servers, load balancers, NAT gateways. Drawn with dashed borders in diagrams.</div>
+        <div class="concept-tag">Internet-Facing</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Private Subnets</div>
+        <div class="concept-desc">Resources isolated from the public internet. No direct internet access. Used for databases, app servers, internal services. Drawn with solid borders in diagrams.</div>
+        <div class="concept-tag">Internal Only</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Internet Gateway</div>
+        <div class="concept-desc">The "front door" to your VPC for public internet traffic. Attach one to a VPC to allow inbound/outbound internet access to resources in public subnets.</div>
+        <div class="concept-tag">Public Entry Point</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Virtual Private Gateway</div>
+        <div class="concept-desc">Connects your VPC to an on-premises network via VPN. Encrypted tunnel over the public internet. Only allows traffic from approved private networks.</div>
+        <div class="concept-tag">VPN Entry Point</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Network Security — Two Layers That Work Together</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Feature</th><th>Security Groups</th><th>Network ACLs</th></tr></thead>
+        <tbody>
+          <tr><td>Where?</td><td>At the instance level (EC2, RDS)</td><td>At the subnet boundary</td></tr>
+          <tr><td>State</td><td>Stateful — remembers connections. Allow inbound, reply automatically allowed out.</td><td>Stateless — checks every packet both ways. Must explicitly allow return traffic.</td></tr>
+          <tr><td>Rules</td><td>Allow rules only. Default: deny all inbound, allow all outbound.</td><td>Allow AND deny rules. Default: allow all (built-in) or deny all (custom).</td></tr>
+          <tr><td>Analogy</td><td>Doorman at your apartment building — remembers you came in, lets you back out.</td><td>Passport control — checks your papers EVERY time you enter or exit, no memory.</td></tr>
+          <tr><td>Use for</td><td>Fine-grained per-instance access control</td><td>Broad subnet-level traffic control, blocking specific IPs</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Connecting to the AWS Cloud — 4 Options</h3>
+    <div class="concept-grid c-yellow">
+      <div class="concept-card">
+        <div class="concept-name">AWS Client VPN</div>
+        <div class="concept-desc">Connect individual remote workers to AWS or on-premises. Fully managed, elastic VPN that scales automatically. No hardware to manage. Best for remote employees.</div>
+        <div class="concept-tag">Remote Workers</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Site-to-Site VPN</div>
+        <div class="concept-desc">Connect an entire office or data center to AWS via encrypted VPN over the internet. High availability. Best for branch offices connecting to the cloud.</div>
+        <div class="concept-tag">Office to Cloud</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS PrivateLink</div>
+        <div class="concept-desc">Privately connect your VPC to other VPCs, AWS services, or third-party services as if they were in your own network. No internet gateway needed, no public IPs.</div>
+        <div class="concept-tag">Private VPC-to-VPC</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Direct Connect</div>
+        <div class="concept-desc">Dedicated physical fiber connection from your data center to AWS. Bypasses the internet entirely. Lower latency, consistent bandwidth, better for large data transfers and compliance.</div>
+        <div class="concept-tag">Dedicated Line</div>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>VPN vs Direct Connect:</strong><br>
+      VPN = encrypted tunnel over shared internet → flexible, lower cost, but variable performance.<br>
+      Direct Connect = your own private physical wire → consistent performance, higher cost, better for heavy workloads and compliance.
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Global Networking — DNS, CDN & Performance</h3>
+    <div class="concept-grid c-yellow">
+      <div class="concept-card">
+        <div class="concept-name">Amazon Route 53</div>
+        <div class="concept-desc">AWS's DNS service — translates human-readable domain names (anycompany.com) into IP addresses (192.0.2.0). Also supports domain registration, health checks, and routing policies (latency, geolocation, failover, weighted).</div>
+        <div class="concept-tag">DNS + Domain</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon CloudFront</div>
+        <div class="concept-desc">Content Delivery Network (CDN). Caches copies of content at edge locations worldwide. Users get content from the nearest edge location — faster load times, lower origin server load. Works with S3, EC2, API Gateway.</div>
+        <div class="concept-tag">CDN</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Global Accelerator</div>
+        <div class="concept-desc">Routes application traffic through the AWS private global network (not the internet). Provides two static IPs globally. Improves performance and availability for latency-sensitive apps like gaming or financial services.</div>
+        <div class="concept-tag">Network Acceleration</div>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>CloudFront vs Global Accelerator:</strong><br>
+      CloudFront = caches content at the edge (images, videos, static files). Best for web content delivery.<br>
+      Global Accelerator = routes traffic through AWS backbone to your app servers. Best for dynamic content, APIs, gaming.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 6: STORAGE -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-teal" id="mod6">
+  <div class="module-header">
+    <div class="module-num">06</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 6 · Storage</div>
+      <h2 class="module-title">S3, EBS, EFS, FSx & Storage Gateway</h2>
+      <p class="module-intro">Three storage types, dozens of services. Block storage for databases. Object storage for files. File storage for shared access. Understand which to use when.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Three Types of Cloud Storage</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Type</th><th>How it works</th><th>AWS Service</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td>Block Storage</td><td>Data split into fixed blocks like a hard drive. Update just the changed block — efficient for frequent modifications.</td><td>EC2 Instance Store, EBS</td><td>Databases, OS volumes, apps needing fast read/write</td></tr>
+          <tr><td>Object Storage</td><td>Files stored as self-contained objects with metadata + unique ID. Must rewrite entire object to update.</td><td>Amazon S3</td><td>Static files, backups, images, videos, data lakes</td></tr>
+          <tr><td>File Storage</td><td>Hierarchical file system shared across multiple instances simultaneously via NFS/SMB protocol.</td><td>EFS, FSx</td><td>Shared workspaces, CMS, collaborative apps</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Amazon S3 — Object Storage at Any Scale</h3>
+    <div class="prose">S3 stores files as <strong>objects in buckets</strong>. Each object = data + metadata + unique key. Buckets are globally unique, you choose the Region. Max object size: 5TB. Bucket size: unlimited. Default: everything is private.</div>
+    <div class="section-label">S3 Storage Classes — Access Frequency vs Cost</div>
+    <div class="concept-grid c-teal">
+      <div class="concept-card">
+        <div class="concept-name">S3 Standard</div>
+        <div class="concept-desc">Frequently accessed data. 3+ AZ replication. Used by default. Highest cost per GB stored.</div>
+        <div class="concept-tag">Hot Data</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">S3 Intelligent-Tiering</div>
+        <div class="concept-desc">Unknown access patterns. Auto-moves objects between tiers based on usage. Small monitoring fee but no retrieval fees. Best "set it and forget it" option.</div>
+        <div class="concept-tag">Unknown Patterns</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">S3 Standard-IA</div>
+        <div class="concept-desc">Infrequent access but instant retrieval needed. Lower storage cost, retrieval fee applies. Good for backups you rarely need.</div>
+        <div class="concept-tag">Infrequent + Instant</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">S3 Glacier Instant</div>
+        <div class="concept-desc">Archive with millisecond retrieval. Same speed as Standard but 68% cheaper. Medical images, news archives accessed occasionally.</div>
+        <div class="concept-tag">Archive + Fast</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">S3 Glacier Flexible</div>
+        <div class="concept-desc">Archive accessed 1-2x/year. Retrieval: 1-5 minutes (expedited) or 5-12 hours (bulk). Great for backups and disaster recovery.</div>
+        <div class="concept-tag">Archive + Minutes</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">S3 Glacier Deep Archive</div>
+        <div class="concept-desc">Lowest cost storage on AWS. Retrieval: 12 hours. For data kept 7-10 years for compliance (financial, healthcare, public sector).</div>
+        <div class="concept-tag">Long-Term Archive</div>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>S3 Lifecycle Policies</strong> automate moving objects between storage classes as they age — e.g., move to Standard-IA after 30 days, Glacier after 90 days, delete after 365 days. Set it once, save money automatically.
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Block Storage: Instance Store vs EBS</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th></th><th>EC2 Instance Store</th><th>Amazon EBS</th></tr></thead>
+        <tbody>
+          <tr><td>Persistence</td><td>❌ Data LOST when instance stops/terminates</td><td>✅ Data persists independently of instance lifecycle</td></tr>
+          <tr><td>Attachment</td><td>Physically attached to the host machine</td><td>Network-attached, can move between instances</td></tr>
+          <tr><td>Performance</td><td>Extremely fast (NVMe SSD)</td><td>Fast (provisioned IOPS available)</td></tr>
+          <tr><td>Backup</td><td>No built-in snapshots</td><td>EBS Snapshots to S3 (incremental, automated)</td></tr>
+          <tr><td>Use for</td><td>Temp cache, buffers, scratch space</td><td>Databases, OS volumes, anything needing persistence</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">File Storage: EFS vs FSx</h3>
+    <div class="concept-grid c-teal">
+      <div class="concept-card">
+        <div class="concept-name">Amazon EFS</div>
+        <div class="concept-desc">Fully managed Linux NFS file system. Scales automatically (petabytes). Multiple EC2 instances access simultaneously. Multi-AZ redundancy. Good for Linux workloads, shared dev environments, CMS.</div>
+        <div class="concept-tag">Linux / NFS</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">FSx for Windows</div>
+        <div class="concept-desc">Fully managed Windows file server with SMB protocol. Full Windows Active Directory integration. For Windows workloads needing NTFS, DFS, and Windows permission model.</div>
+        <div class="concept-tag">Windows / SMB</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">FSx for Lustre</div>
+        <div class="concept-desc">High-performance parallel file system. Sub-millisecond latency. Designed for HPC, ML training, video processing, financial simulations needing extreme throughput.</div>
+        <div class="concept-tag">HPC / ML</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Storage Gateway</div>
+        <div class="concept-desc">Bridge between on-premises storage and AWS cloud. 3 types: S3 File Gateway (files→S3), Volume Gateway (block→EBS snapshots), Tape Gateway (replace physical tapes with cloud). Enables gradual cloud adoption.</div>
+        <div class="concept-tag">Hybrid Storage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 7: DATABASES -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-red" id="mod7">
+  <div class="module-header">
+    <div class="module-num">07</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 7 · Databases</div>
+      <h2 class="module-title">RDS, Aurora, DynamoDB, ElastiCache & More</h2>
+      <p class="module-intro">AWS philosophy: use the right database for the job. Relational for structured queries. NoSQL for flexible schemas and scale. In-memory for microsecond latency. Purpose-built for specific patterns.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Relational vs NoSQL — The Core Difference</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th></th><th>Relational (SQL)</th><th>NoSQL (Key-Value)</th></tr></thead>
+        <tbody>
+          <tr><td>Schema</td><td>Fixed, predefined. Every row has same columns.</td><td>Flexible. Each item can have different attributes.</td></tr>
+          <tr><td>Query</td><td>SQL — complex joins, aggregations, relationships</td><td>Key lookups, simple queries. Not designed for complex joins.</td></tr>
+          <tr><td>Scale</td><td>Vertical scaling (bigger machine)</td><td>Horizontal scaling (more machines)</td></tr>
+          <tr><td>Best for</td><td>Financial transactions, inventory, ERP, CRM</td><td>User profiles, gaming data, session data, catalogs</td></tr>
+          <tr><td>AWS Service</td><td>RDS, Aurora</td><td>DynamoDB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">AWS Database Services Map</h3>
+    <div class="concept-grid c-red">
+      <div class="concept-card">
+        <div class="concept-name">Amazon RDS</div>
+        <div class="concept-desc"><strong>Managed relational database</strong>. AWS handles backups, patching, failover, and hardware. Supports MySQL, PostgreSQL, MariaDB, Oracle, SQL Server. Multi-AZ for high availability. Read replicas for scaling reads.</div>
+        <div class="concept-tag">Relational</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Aurora</div>
+        <div class="concept-desc"><strong>AWS-built high-performance relational DB</strong>. MySQL/PostgreSQL compatible. 5x faster than MySQL, 3x faster than PostgreSQL. Auto-scales storage to 128TB. 6 copies across 3 AZs. Up to 15 read replicas.</div>
+        <div class="concept-tag">High Performance SQL</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon DynamoDB</div>
+        <div class="concept-desc"><strong>Fully managed serverless NoSQL</strong>. Key-value and document model. Single-digit millisecond latency at any scale. Auto-scales. No schema changes needed. Global tables for multi-region. Used by Amazon Prime Day (146M req/sec!).</div>
+        <div class="concept-tag">NoSQL</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon ElastiCache</div>
+        <div class="concept-desc"><strong>In-memory caching layer</strong>. Supports Redis, Valkey, and Memcached. Microsecond latency for frequently accessed data. Sits in front of RDS to reduce database load. Great for session data, leaderboards, real-time analytics.</div>
+        <div class="concept-tag">In-Memory Cache</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon DocumentDB</div>
+        <div class="concept-desc"><strong>MongoDB-compatible document database</strong>. For semi-structured JSON data that doesn't fit neatly in relational tables. Content management, catalogs, user profiles with flexible schemas.</div>
+        <div class="concept-tag">Document / JSON</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Neptune</div>
+        <div class="concept-desc"><strong>Graph database</strong>. Designed for highly connected data — social networks, fraud detection, knowledge graphs, recommendation engines. Queries relationships that are impractical in relational DBs.</div>
+        <div class="concept-tag">Graph</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Backup</div>
+        <div class="concept-desc"><strong>Centralized backup management</strong>. Single dashboard to manage backups across EBS, EFS, RDS, DynamoDB, FSx, and on-premises. Automated schedules, retention policies, cross-region replication.</div>
+        <div class="concept-tag">Backup Management</div>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>ElastiCache Pattern:</strong> App first checks cache → if found (cache hit) return immediately → if not (cache miss) query RDS, store result in cache, return. Subsequent requests for same data are microsecond-fast.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 8: AI/ML AND DATA ANALYTICS -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-orange" id="mod8">
+  <div class="module-header">
+    <div class="module-num">08</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 8 · AI/ML & Data Analytics</div>
+      <h2 class="module-title">AI Services, Generative AI & Data Pipelines</h2>
+      <p class="module-intro">From pre-built AI you can call via API to custom ML models to generative AI — AWS has a 3-tier stack. Plus a full data pipeline suite for ingesting, processing, and visualizing data.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">The AWS AI/ML Stack — 3 Tiers</h3>
+    <div class="tier-row" style="margin-bottom:2px">
+      <div class="tier-label" style="color:var(--orange)">Tier 1<br>Pre-Built</div>
+      <div class="tier-content"><strong>AWS AI Services</strong> — <span>Ready-to-use managed models via API. No ML knowledge needed. Pay per API call. Fast to integrate.</span></div>
+    </div>
+    <div class="tier-row" style="margin-bottom:2px">
+      <div class="tier-label" style="color:var(--blue)">Tier 2<br>Custom</div>
+      <div class="tier-content"><strong>Amazon SageMaker AI</strong> — <span>Build, train, and deploy your own models. Fully managed infrastructure. IDE for data scientists, no-code for analysts.</span></div>
+    </div>
+    <div class="tier-row" style="margin-bottom:24px">
+      <div class="tier-label" style="color:var(--green)">Tier 3<br>Expert</div>
+      <div class="tier-content"><strong>ML Frameworks + Infrastructure</strong> — <span>Full control. PyTorch, TensorFlow, Apache MXNet on ML-optimized EC2. For specialized research and cutting-edge models.</span></div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Tier 1 AI Services — Pre-Built Models</h3>
+    <div class="section-label">Language Services</div>
+    <div class="concept-grid c-orange">
+      <div class="concept-card">
+        <div class="concept-name">Amazon Comprehend</div>
+        <div class="concept-desc">NLP to extract sentiment, key phrases, entities, and language from text. Customer feedback analysis, compliance monitoring, content classification.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Polly</div>
+        <div class="concept-desc">Text → lifelike speech. Multiple languages, genders, accents. Virtual assistants, e-learning narration, accessibility for visually impaired.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Transcribe</div>
+        <div class="concept-desc">Speech → text. Real-time and batch. Speaker identification, custom vocabulary. Call transcription, automated subtitles, meeting notes.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Translate</div>
+        <div class="concept-desc">Real-time and batch text translation across 75+ language pairs. Document translation, multilingual apps, global content localization.</div>
+      </div>
+    </div>
+    <div class="section-label" style="margin-top:16px">Vision, Search & Conversational</div>
+    <div class="concept-grid c-orange">
+      <div class="concept-card">
+        <div class="concept-name">Amazon Rekognition</div>
+        <div class="concept-desc">Identify objects, people, text, scenes, and activities in images/videos. Content moderation, identity verification, media analysis.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Textract</div>
+        <div class="concept-desc">Extract text from scanned documents, forms, and tables — including handwritten text. Financial/healthcare/government form processing.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Kendra</div>
+        <div class="concept-desc">Intelligent enterprise search using NLP. Understands query context — returns precise answers not just documents. Internal knowledge bases, chatbots.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Lex</div>
+        <div class="concept-desc">Build voice and text chatbots using the same technology that powers Alexa. NLU + ASR for lifelike conversations. Virtual assistants, FAQ bots.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Personalize</div>
+        <div class="concept-desc">Add real-time personalized recommendations to apps using your historical data. Product recommendations, content ranking, personalized emails.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Generative AI on AWS — 3 Services</h3>
+    <div class="concept-grid c-orange">
+      <div class="concept-card">
+        <div class="concept-name">Amazon SageMaker JumpStart</div>
+        <div class="concept-desc"><strong>ML hub with pre-built FMs</strong>. Browse and deploy hundreds of pre-trained foundation models in clicks. Fine-tune with your own data. Great for experimentation and prototyping.</div>
+        <div class="concept-tag">Model Library</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Bedrock</div>
+        <div class="concept-desc"><strong>Fully managed FM deployment</strong>. Access FMs from Amazon, Anthropic (Claude!), Stability AI, and others via a single API. Fine-tune privately with your data. Build production-grade GenAI apps without managing infrastructure.</div>
+        <div class="concept-tag">Build GenAI Apps</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Q Business</div>
+        <div class="concept-desc"><strong>AI assistant for employees</strong>. Connects to your company's data (Slack, SharePoint, Jira, etc.) and answers questions using your internal knowledge. Automates workflows.</div>
+        <div class="concept-tag">Enterprise AI</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Q Developer</div>
+        <div class="concept-desc"><strong>AI coding assistant</strong>. Generates code, explains code, finds bugs, writes tests. Integrates with VS Code, JetBrains, and more. Supports Python, Java, JavaScript, TypeScript, C#.</div>
+        <div class="concept-tag">AI Coding</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Data Pipeline Services — ETL from Source to Insight</h3>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--orange)"></div><span class="pipe-label" style="color:var(--orange)">Ingest</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--blue)"></div><span class="pipe-label" style="color:var(--blue)">Store</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--purple)"></div><span class="pipe-label" style="color:var(--purple)">Catalog</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--green)"></div><span class="pipe-label" style="color:var(--green)">Process</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--teal)"></div><span class="pipe-label" style="color:var(--teal)">Analyze</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--yellow)"></div><span class="pipe-label" style="color:var(--yellow)">Visualize</span></div>
+    </div>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Phase</th><th>Service</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>Ingest (Real-time)</td><td>Kinesis Data Streams</td><td>Stream terabytes of data in real-time from apps, IoT, clickstreams</td></tr>
+          <tr><td>Ingest (Near real-time)</td><td>Amazon Data Firehose</td><td>Fully managed, delivers data within seconds to S3/Redshift/analytics</td></tr>
+          <tr><td>Store (Data Lake)</td><td>Amazon S3</td><td>Unlimited raw data storage, structured or unstructured</td></tr>
+          <tr><td>Store (Data Warehouse)</td><td>Amazon Redshift</td><td>Petabyte-scale structured data optimized for analytics and SQL queries</td></tr>
+          <tr><td>Catalog</td><td>AWS Glue Data Catalog</td><td>Central metadata repository — makes data discoverable across services</td></tr>
+          <tr><td>Process (Managed ETL)</td><td>AWS Glue</td><td>Visual and code ETL jobs, auto-discovers schema, simple data prep</td></tr>
+          <tr><td>Process (Big Data)</td><td>Amazon EMR</td><td>Managed Hadoop/Spark/Hive clusters for large-scale data processing</td></tr>
+          <tr><td>Analyze (SQL)</td><td>Amazon Athena</td><td>Serverless SQL queries on S3. Pay per query scanned. No setup.</td></tr>
+          <tr><td>Visualize (BI)</td><td>Amazon QuickSight</td><td>Interactive dashboards for business users. Natural language queries via Amazon Q.</td></tr>
+          <tr><td>Visualize (Real-time)</td><td>Amazon OpenSearch</td><td>Real-time search and log monitoring dashboards</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 9: SECURITY -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-blue" id="mod9">
+  <div class="module-header">
+    <div class="module-num">09</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 9 · Security</div>
+      <h2 class="module-title">IAM, Network Protection, Encryption & Detection</h2>
+      <p class="module-intro">Security is a shared responsibility. AWS secures the infrastructure. You secure everything you put on it. The lifecycle: Prevent → Protect → Detect → Respond.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">AWS Shared Responsibility Model</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>You (customer)</th><th>AWS</th></tr></thead>
+        <tbody>
+          <tr><td>Security IN the cloud: your data, apps, OS configuration, access management, network settings</td><td>Security OF the cloud: physical hardware, global network, hypervisor, data centers, Regions/AZs/Edge</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">IAM — Identity & Access Management</h3>
+    <div class="prose">Default behavior: <strong>everything is denied</strong>. You must explicitly grant permissions. The principle of least privilege = give access only to what's needed, nothing more.</div>
+    <div class="concept-grid c-blue">
+      <div class="concept-card">
+        <div class="concept-name">Root User</div>
+        <div class="concept-desc">Account owner — unrestricted access. Enable MFA immediately. Never use for daily tasks. Create IAM users instead.</div>
+        <div class="concept-tag">Account Owner</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">IAM Users</div>
+        <div class="concept-desc">Represents a person or application. Has its own credentials. Zero permissions by default — must explicitly grant via policies.</div>
+        <div class="concept-tag">Individual Identity</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">IAM Groups</div>
+        <div class="concept-desc">Organize users with shared permissions. Assign a policy to a group, all members inherit it. Easier than managing permissions per-user.</div>
+        <div class="concept-tag">Bulk Permissions</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">IAM Roles</div>
+        <div class="concept-desc">Temporary identity — assume a role to get its permissions. Replaces all previous permissions while active. Used by EC2 instances, Lambda, cross-account access, federated users.</div>
+        <div class="concept-tag">Temporary Access</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">IAM Policies</div>
+        <div class="concept-desc">JSON documents that allow/deny specific actions on specific resources. Attach to users, groups, or roles. Fine-grained control: allow S3 read on this bucket, deny delete on all others.</div>
+        <div class="concept-tag">Permission Rules</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">IAM Identity Center</div>
+        <div class="concept-desc">Single sign-on (SSO) across all AWS accounts and apps. Connect to existing identity provider (Active Directory, Okta). Federated identity management — one login, access everywhere.</div>
+        <div class="concept-tag">SSO / Federation</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">DDoS Protection</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Service</th><th>What it does</th><th>Cost</th></tr></thead>
+        <tbody>
+          <tr><td>Security Groups</td><td>Network-level firewall blocking bad traffic types before it hits your instances. Operates at full Region capacity.</td><td><span class="badge badge-free">Free</span></td></tr>
+          <tr><td>AWS Shield Standard</td><td>Automatic DDoS protection for all AWS customers. Defends against most common network-layer attacks.</td><td><span class="badge badge-free">Free</span></td></tr>
+          <tr><td>AWS Shield Advanced</td><td>Enhanced DDoS protection with detailed diagnostics, 24/7 DDoS response team, integrates with CloudFront/Route53/ELB.</td><td><span class="badge badge-paid">Paid</span></td></tr>
+          <tr><td>AWS WAF</td>
+          <td>Web Application Firewall — inspects HTTP traffic against IP block lists (web ACLs). Blocks known bad actors. Works with CloudFront, ALB, API Gateway.</td><td><span class="badge badge-paid">Paid</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Data Encryption</h3>
+    <div class="concept-grid c-blue">
+      <div class="concept-card">
+        <div class="concept-name">Encryption at Rest</div>
+        <div class="concept-desc">Data stored in S3, EBS, DynamoDB is encrypted. S3 encrypts all objects by default. EBS volumes can be encrypted. DynamoDB uses KMS automatically.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Encryption in Transit</div>
+        <div class="concept-desc">Data moving between systems protected by TLS/SSL. Managed by AWS Certificate Manager (ACM). The padlock icon in your browser = TLS certificate.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS KMS</div>
+        <div class="concept-desc">Create and manage cryptographic keys. Keys never leave KMS. Use across S3, EBS, RDS, Lambda. Specify which IAM users can use each key. Disable keys without deleting them.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Macie</div>
+        <div class="concept-desc">ML-powered service that discovers and classifies sensitive data in S3 — PII, financial data, healthcare records. Helps with compliance (GDPR, HIPAA).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Detection & Response — The Investigation Pipeline</h3>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--orange)"></div><span class="pipe-label" style="color:var(--orange)">Inspector (assess)</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--blue)"></div><span class="pipe-label" style="color:var(--blue)">GuardDuty (detect)</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--purple)"></div><span class="pipe-label" style="color:var(--purple)">Detective (investigate)</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--green)"></div><span class="pipe-label" style="color:var(--green)">Security Hub (centralize)</span></div>
+    </div>
+    <div class="concept-grid c-blue">
+      <div class="concept-card">
+        <div class="concept-name">Amazon Inspector</div>
+        <div class="concept-desc">Automated security assessments for EC2, containers, Lambda. Finds vulnerabilities and deviations from best practices. Prioritized list of findings with remediation steps.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon GuardDuty</div>
+        <div class="concept-desc">Continuously monitors account activity and network traffic using ML + threat intelligence. Detects malicious IPs, unusual patterns, compromised credentials.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon Detective</div>
+        <div class="concept-desc">Root cause analysis after a threat is detected. Interactive visualizations of resource/user behavior over time. Answers "how did this happen?"</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Security Hub</div>
+        <div class="concept-desc">Single dashboard aggregating findings from Inspector, GuardDuty, Macie, and third-party tools. Organizes into actionable "Insights". Automated remediation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 10: MONITORING & GOVERNANCE -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-green" id="mod10">
+  <div class="module-header">
+    <div class="module-num">10</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 10 · Monitoring, Compliance & Governance</div>
+      <h2 class="module-title">CloudWatch, CloudTrail, Config & Organizations</h2>
+      <p class="module-intro">Know what's happening in your account at all times. Monitor performance, audit API calls, assess compliance, and govern multiple accounts from a central location.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">The Governance Progression</h3>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--blue)"></div><span class="pipe-label" style="color:var(--blue)">Secure</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--orange)"></div><span class="pipe-label" style="color:var(--orange)">Monitor</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--purple)"></div><span class="pipe-label" style="color:var(--purple)">Audit</span></div>
+      <span class="pipe-arrow">→</span>
+      <div class="pipe-step"><div class="pipe-dot" style="background:var(--green)"></div><span class="pipe-label" style="color:var(--green)">Comply</span></div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Amazon CloudWatch — Monitor Everything</h3>
+    <div class="concept-grid c-green">
+      <div class="concept-card">
+        <div class="concept-name">Metrics</div>
+        <div class="concept-desc">Collect numerical data from all AWS resources (CPU%, network bytes, request count). Create custom metrics for your application. Data retained for up to 15 months.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Alarms</div>
+        <div class="concept-desc">Trigger actions when metrics cross thresholds. Send SNS notification, Auto Scale EC2 fleet, or invoke Lambda. "CPU &gt; 80% for 5 minutes → add 2 instances."</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Dashboards</div>
+        <div class="concept-desc">Customizable real-time visualizations. Create a single "mission control" view of your entire infrastructure. Auto-refreshes. Shareable across teams.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Logs</div>
+        <div class="concept-desc">Centralize and search log files from all AWS services and on-premises servers. Filter for error codes, search by time range, set alarms on log patterns.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">AWS CloudTrail — Audit Every API Call</h3>
+    <div class="prose">Every action in AWS is an API call. CloudTrail <strong>records every single one</strong> — who did it, what they did, when, from where, and whether it succeeded. Think of it as a comprehensive security camera for your entire AWS account.</div>
+    <div class="concept-grid c-green">
+      <div class="concept-card">
+        <div class="concept-name">CloudTrail Events</div>
+        <div class="concept-desc">90 days of management event history viewable in console at no charge. Who launched that EC2 instance? Who deleted that S3 bucket? All answerable via CloudTrail.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">CloudTrail Logs</div>
+        <div class="concept-desc">Deliver events as log files to S3 for long-term retention. Used as evidence for compliance: PCI-DSS, HIPAA, SOC 2. Tamper-evident integrity validation.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">CloudTrail Insights</div>
+        <div class="concept-desc">Analyzes your normal API call patterns. Generates alerts when API usage deviates from normal — unusual spikes might indicate a breach or misconfiguration.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Compliance & Governance Services</h3>
+    <div class="concept-grid c-green">
+      <div class="concept-card">
+        <div class="concept-name">AWS Artifact</div>
+        <div class="concept-desc">On-demand access to AWS compliance reports and agreements. Download SOC 2, ISO 27001, PCI-DSS reports for your auditors. Manage HIPAA BAAs and other agreements.</div>
+        <div class="concept-tag">Compliance Reports</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Config</div>
+        <div class="concept-desc">Continuously tracks and records the configuration of every AWS resource. Define rules (e.g., "all S3 buckets must be encrypted") and Config flags non-compliant resources automatically.</div>
+        <div class="concept-tag">Config Audit</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Audit Manager</div>
+        <div class="concept-desc">Automates evidence collection for compliance frameworks (GDPR, HIPAA, SOC 2). Maps your AWS resources to control requirements. Generates audit-ready reports.</div>
+        <div class="concept-tag">Evidence Collection</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Organizations</div>
+        <div class="concept-desc">Manage multiple AWS accounts centrally. Consolidated billing (one bill for all accounts). Service Control Policies (SCPs) restrict what member accounts can do. Group accounts in OUs by department/project.</div>
+        <div class="concept-tag">Multi-Account</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Control Tower</div>
+        <div class="concept-desc">Automates setup of a well-architected multi-account AWS environment. Pre-built guardrails enforce security and compliance. Account Factory standardizes new account provisioning.</div>
+        <div class="concept-tag">Account Governance</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Trusted Advisor</div>
+        <div class="concept-desc">Your automated best-practice advisor. Checks your account across 5 categories: Cost Optimization, Performance, Security, Fault Tolerance, Service Limits. Real-time recommendations.</div>
+        <div class="concept-tag">Best Practices</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 11: PRICING & SUPPORT -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-purple" id="mod11">
+  <div class="module-header">
+    <div class="module-num">11</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 11 · Pricing & Support</div>
+      <h2 class="module-title">AWS Pricing, Billing Tools & Support Plans</h2>
+      <p class="module-intro">Three pricing principles, three cost drivers, five support tiers. Know how AWS charges you, which tools manage costs, and which support plan fits your needs.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">3 Pricing Principles + 3 Cost Drivers</h3>
+    <div class="concept-grid c-purple">
+      <div class="concept-card">
+        <div class="concept-name">Pay As You Go</div>
+        <div class="concept-desc">No upfront costs, no long-term commitments unless you choose. Only pay for resources while you use them. Stop the instance, stop the billing.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Save When You Commit</div>
+        <div class="concept-desc">1 or 3 year commitment on compute usage → up to 66% off On-Demand. Savings Plans are flexible (any instance type). Reserved Instances lock in a specific type.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Pay Less by Using More</div>
+        <div class="concept-desc">Volume discounts — the more you use, the less per unit. S3 pricing tiers decrease as GB stored increases. Data transfer rates drop at higher volumes.</div>
+      </div>
+    </div>
+    <div class="section-label" style="margin-top:16px">3 Main Cost Drivers</div>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Driver</th><th>What you pay for</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Compute</td><td>Processing power and time (per second or hour)</td><td>EC2 instance running, Lambda execution time</td></tr>
+          <tr><td>Storage</td><td>Amount of data stored and type/class</td><td>S3 per GB-month, EBS per GB provisioned</td></tr>
+          <tr><td>Outbound Data Transfer</td><td>Data leaving AWS to internet (inbound is usually free)</td><td>Website serving files, API responses to users</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Cost Management Tools</h3>
+    <div class="concept-grid c-purple">
+      <div class="concept-card">
+        <div class="concept-name">AWS Billing Dashboard</div>
+        <div class="concept-desc">Overview of current month spend, forecasted total, and breakdown by service. Starting point for understanding your bill. Manage payment methods and invoices.</div>
+        <div class="concept-tag">View Spend</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Budgets</div>
+        <div class="concept-desc">Set custom cost/usage thresholds. Get email/SNS alerts when approaching or exceeding budget. Forecast future spend. Per service, per tag, or total account.</div>
+        <div class="concept-tag">Set Alerts</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Cost Explorer</div>
+        <div class="concept-desc">Interactive graphs and reports to analyze historical spending. Filter by service, linked account, or resource tag. Get Reserved Instance recommendations. Forecast future costs.</div>
+        <div class="concept-tag">Analyze Trends</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Pricing Calculator</div>
+        <div class="concept-desc">Estimate costs before you deploy anything. Configure instances, storage, data transfer — get a detailed monthly estimate. Share estimates with stakeholders.</div>
+        <div class="concept-tag">Pre-Deploy Estimate</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">AWS Support Plans</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Plan</th><th>Best For</th><th>Response Time (Critical)</th><th>TAM</th></tr></thead>
+        <tbody>
+          <tr><td>Basic</td><td>Everyone (included free). Access to docs, whitepapers, Trusted Advisor core checks, Health Dashboard.</td><td>No technical support</td><td>❌</td></tr>
+          <tr><td>Developer</td><td>Experimenting/testing. Email support, response &lt;24h general, &lt;12h if impaired.</td><td>&lt;12 hours</td><td>❌</td></tr>
+          <tr><td>Business</td><td>Production workloads. Phone access, full Trusted Advisor, &lt;1h if prod is down.</td><td>&lt;1 hour</td><td>❌</td></tr>
+          <tr><td>Enterprise On-Ramp</td><td>Mission-critical. Pool of TAMs, &lt;30min business-critical response.</td><td>&lt;30 minutes</td><td>Pool</td></tr>
+          <tr><td>Enterprise</td><td>Mission-critical, large scale. Dedicated TAM, &lt;15min response, full concierge support.</td><td>&lt;15 minutes</td><td>✅ Dedicated</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>TAM (Technical Account Manager)</strong> = Your primary AWS contact. Proactively monitors your environment, advises on architecture, optimization, and connects you to experts. Included with Enterprise On-Ramp and Enterprise.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 12: MIGRATION -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-yellow" id="mod12">
+  <div class="module-header">
+    <div class="module-num">12</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 12 · Migration</div>
+      <h2 class="module-title">Cloud Adoption Framework, 7 Rs & Migration Tools</h2>
+      <p class="module-intro">Moving to the cloud is a structured process, not a single event. Three phases, six perspectives, seven strategies, and a suite of tools to move applications, databases, and data.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">3 Phases of Cloud Migration</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Phase</th><th>Goal</th><th>Key Services</th></tr></thead>
+        <tbody>
+          <tr><td>1. Assess</td><td>Understand current state. Build business case. Identify what to migrate and why.</td><td>Migration Evaluator</td></tr>
+          <tr><td>2. Mobilize</td><td>Plan the migration. Discover all dependencies. Address skill gaps.</td><td>Application Discovery Service, Migration Hub</td></tr>
+          <tr><td>3. Migrate & Modernize</td><td>Execute the migration. Migrate apps, databases, and data. Modernize while moving.</td><td>Application Migration Service, AWS DMS, DataSync, Snow Family</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">AWS CAF — 6 Perspectives</h3>
+    <div class="concept-grid c-yellow">
+      <div class="concept-card"><div class="concept-name">Business</div><div class="concept-desc">Align IT investments with business goals. Build the financial case for migration. Involves: Business Managers, Finance, Strategy.</div></div>
+      <div class="concept-card"><div class="concept-name">People</div><div class="concept-desc">Manage organizational change. Assess skills gaps, training needs. Involves: HR, People Managers.</div></div>
+      <div class="concept-card"><div class="concept-name">Governance</div><div class="concept-desc">Align IT strategy with business strategy. Measure cloud investments against outcomes. Involves: CIO, Enterprise Architects, Program Managers.</div></div>
+      <div class="concept-card"><div class="concept-name">Platform</div><div class="concept-desc">Technical architecture for cloud. Migrate workloads and implement new solutions. Involves: CTO, Solutions Architects.</div></div>
+      <div class="concept-card"><div class="concept-name">Security</div><div class="concept-desc">Meet security objectives: visibility, auditability, control, agility. Involves: CISO, IT Security Managers.</div></div>
+      <div class="concept-card"><div class="concept-name">Operations</div><div class="concept-desc">Run, use, and recover workloads to agreed-upon levels. Day-to-day cloud ops. Involves: IT Ops Managers.</div></div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">The 7 Rs — Migration Strategies</h3>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Strategy</th><th>Also Called</th><th>What you do</th><th>Effort</th></tr></thead>
+        <tbody>
+          <tr><td>Relocate</td><td>—</td><td>Move VMs/containers to cloud with no changes. Same OS, same config, just different host.</td><td>Minimal</td></tr>
+          <tr><td>Rehost</td><td>Lift-and-Shift</td><td>Move servers to AWS EC2 without any changes. Quick, can save 30%+ just from moving.</td><td>Low</td></tr>
+          <tr><td>Replatform</td><td>Lift-Tinker-Shift</td><td>Minor optimizations without changing core architecture. MySQL → Aurora RDS, no code changes.</td><td>Low-Medium</td></tr>
+          <tr><td>Refactor</td><td>Re-architect</td><td>Redesign to fully leverage cloud-native features. Microservices, serverless. Highest value, most effort.</td><td>High</td></tr>
+          <tr><td>Repurchase</td><td>Drop &amp; Shop</td><td>Replace on-prem app with SaaS cloud alternative. e.g., Replace CRM with Salesforce.</td><td>Medium</td></tr>
+          <tr><td>Retain</td><td>Stay Put</td><td>Keep in existing environment for now. Not ready to migrate yet — revisit later.</td><td>None</td></tr>
+          <tr><td>Retire</td><td>Decommission</td><td>Shut down apps no longer needed. Often 10-20% of portfolio can be retired on migration.</td><td>None</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Key Migration Tools</h3>
+    <div class="concept-grid c-yellow">
+      <div class="concept-card">
+        <div class="concept-name">AWS DMS</div>
+        <div class="concept-desc">Database Migration Service. Migrate relational, NoSQL, and data warehouse databases to AWS. Source DB stays live during migration. Supports homogeneous (MySQL→MySQL) and heterogeneous (Oracle→Aurora) migrations.</div>
+        <div class="concept-tag">Database Migration</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS SCT</div>
+        <div class="concept-desc">Schema Conversion Tool. Automatically converts database schemas, stored procedures, and views from one engine to another. Flags what needs manual review. Use before DMS for heterogeneous migrations.</div>
+        <div class="concept-tag">Schema Conversion</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS DataSync</div>
+        <div class="concept-desc">Automates fast online data transfer between on-premises and S3/EFS/FSx. Encryption, validation, bandwidth throttling, scheduling. 10x faster than open-source tools.</div>
+        <div class="concept-tag">Online Data Transfer</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Snow Family</div>
+        <div class="concept-desc">Physical devices for offline data migration. Snowball Edge: rugged device for petabyte-scale transfers when internet is unavailable or too slow. Ship data to AWS, they ingest it.</div>
+        <div class="concept-tag">Offline Transfer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 13: WELL-ARCHITECTED -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module-section c-teal" id="mod13">
+  <div class="module-header">
+    <div class="module-num">13</div>
+    <div class="module-title-group">
+      <div class="module-eyebrow">Module 13 · Well-Architected Solutions</div>
+      <h2 class="module-title">AWS Well-Architected Framework & Specialized Services</h2>
+      <p class="module-intro">Building in the cloud isn't just about what works — it's about what works well. The 6 pillars of the Well-Architected Framework help you evaluate and continuously improve your architecture.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">6 Pillars of the Well-Architected Framework</h3>
+    <div class="concept-grid c-teal">
+      <div class="concept-card">
+        <div class="concept-name">1. Operational Excellence</div>
+        <div class="concept-desc">Run operations as code. Make frequent, small, reversible changes. Anticipate failure. Automate deployments via CI/CD pipelines. Continuously improve operations over time.</div>
+        <div class="concept-tag">Automate Ops</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">2. Security</div>
+        <div class="concept-desc">Apply security at every layer. Enable traceability. Automate security best practices. Protect data in transit and at rest. Keep people away from data. Prepare for security events.</div>
+        <div class="concept-tag">Least Privilege</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">3. Reliability</div>
+        <div class="concept-desc">Automatically recover from failure. Test recovery procedures. Scale horizontally. Stop guessing capacity. Manage change with automation. Multi-AZ and multi-region for resilience.</div>
+        <div class="concept-tag">Survive Failures</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">4. Performance Efficiency</div>
+        <div class="concept-desc">Use the right compute type. Rightsize instances. Democratize advanced technologies. Go global in minutes. Use serverless architectures. Experiment often.</div>
+        <div class="concept-tag">Right-Size</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">5. Cost Optimization</div>
+        <div class="concept-desc">Practice cloud financial management. Adopt consumption model (pay per use). Measure efficiency. Stop spending on undifferentiated heavy lifting. Analyze and attribute expenditures.</div>
+        <div class="concept-tag">Reduce Waste</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">6. Sustainability</div>
+        <div class="concept-desc">Understand your environmental impact. Establish sustainability goals. Maximize utilization. Anticipate and adopt more efficient hardware. Use managed services to reduce footprint.</div>
+        <div class="concept-tag">Minimize Footprint</div>
+      </div>
+    </div>
+    <div class="callout">
+      The <strong>AWS Well-Architected Tool</strong> is a free self-service tool. Create a workload, answer questions against your AWS architecture, and get a report showing risks and improvement recommendations aligned to each pillar.
+    </div>
+  </div>
+
+  <div class="lesson">
+    <h3 class="lesson-title">Specialized Services — Development, Business & IoT</h3>
+    <div class="section-label">Development Services</div>
+    <div class="concept-grid c-teal">
+      <div class="concept-card">
+        <div class="concept-name">AWS CodePipeline</div>
+        <div class="concept-desc">Fully managed CI/CD — automates build, test, deploy phases. Trigger from code commits, release reliably without servers.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS X-Ray</div>
+        <div class="concept-desc">Distributed tracing and debugging. Visually trace requests through API Gateway → Lambda → DynamoDB. Find bottlenecks and failures in complex architectures.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS Amplify</div>
+        <div class="concept-desc">Full-stack web and mobile app framework. Add auth, APIs, storage, hosting with minimal infrastructure management. Build and deploy frontend + backend on AWS.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS AppSync</div>
+        <div class="concept-desc">Managed GraphQL service. Single API that connects to multiple data sources (DynamoDB, RDS, Lambda, REST). Ideal for real-time data sync in mobile/web apps.</div>
+      </div>
+    </div>
+    <div class="section-label" style="margin-top:16px">Business & End-User Services</div>
+    <div class="concept-grid c-teal">
+      <div class="concept-card">
+        <div class="concept-name">Amazon Connect</div>
+        <div class="concept-desc">AI-powered cloud contact center. Set up in minutes. Call routing, recording, analytics, chat support. Pay per minute — no hardware needed.</div>
+        <div class="concept-tag">Contact Center</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon SES</div>
+        <div class="concept-desc">Simple Email Service for high-volume transactional and marketing emails. Low cost, high deliverability, supports DKIM/SPF. Newsletter platforms, order confirmations.</div>
+        <div class="concept-tag">Email at Scale</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon WorkSpaces</div>
+        <div class="concept-desc">Managed virtual desktops (VDI). Employees access full desktop from any device. No physical hardware to manage. Persistent, persistent storage, AD integration.</div>
+        <div class="concept-tag">Virtual Desktop</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">Amazon AppStream 2.0</div>
+        <div class="concept-desc">Stream desktop applications to web browsers. No local install needed. Convert desktop apps to SaaS delivery without code changes. IT deploys once, everyone accesses.</div>
+        <div class="concept-tag">App Streaming</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-name">AWS IoT Core</div>
+        <div class="concept-desc">Securely connect physical devices (sensors, cameras, appliances) to the cloud. Handle billions of messages. Mutual authentication, end-to-end encryption, multiple protocols.</div>
+        <div class="concept-tag">IoT Devices</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary banner -->
+  <div class="callout" style="background: linear-gradient(135deg, rgba(45,212,191,0.08), rgba(249,115,22,0.08)); border-color: rgba(45,212,191,0.3); margin-top:32px">
+    <div class="callout-title" style="color:var(--teal)">🎉 Course Complete</div>
+    <strong>You've covered all 13 modules</strong> of the AWS Cloud Practitioner curriculum — from EC2 fundamentals through to Well-Architected principles. The CLF-C02 exam tests your ability to recognize which service fits a scenario, not your ability to configure services. Focus on the <em>why</em> behind each service, not the technical details.
+  </div>
+</section>
+
+</main>
+
+<script>
+// Active nav highlighting on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-module-link');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-module-link[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
